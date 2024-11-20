@@ -1,0 +1,186 @@
+<html><head><base href="/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NGR WEB - AI Website Builder</title>
+<style>
+:root {
+  --mustard: #FFD700;
+  --orange-yellow: #FFA500;
+  --black: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: var(--black);
+  color: var(--orange-yellow);
+}
+
+.navbar {
+  background: var(--mustard);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--black);
+  text-decoration: none;
+}
+
+.language-selector {
+  background: var(--black);
+  color: var(--mustard);
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.input-section {
+  background: rgba(255,215,0,0.1);
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.text-input {
+  width: 100%;
+  min-height: 200px;
+  background: var(--black);
+  color: var(--orange-yellow);
+  padding: 1rem;
+  border: 2px solid var(--mustard);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.generate-btn {
+  background: var(--black);
+  color: var(--mustard);
+  padding: 1rem 2rem;
+  border: 2px solid var(--mustard);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.generate-btn:hover {
+  background: var(--mustard);
+  color: var(--black);
+}
+
+.preview-section {
+  min-height: 400px;
+  background: rgba(255,215,0,0.1);
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.typing-animation {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end);
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="https://ngrweb.com" class="logo">NGR WEB</a>
+  <select class="language-selector" id="languageSelect">
+    <option value="en">English (US)</option>
+    <option value="pt">Português (BR)</option>
+  </select>
+</nav>
+
+<div class="main-container">
+  <div class="input-section">
+    <h2 class="typing-animation">Tell us about your business...</h2>
+    <textarea class="text-input" id="businessDescription" placeholder="Describe your company or business here..."></textarea>
+    <button class="generate-btn" id="generateBtn">NGR</button>
+  </div>
+  
+  <div class="preview-section" id="previewSection">
+    <h3>Your website preview will appear here...</h3>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const languageSelect = document.getElementById('languageSelect');
+  const generateBtn = document.getElementById('generateBtn');
+  const businessDescription = document.getElementById('businessDescription');
+  const previewSection = document.getElementById('previewSection');
+
+  // Language switcher
+  languageSelect.addEventListener('change', (e) => {
+    const lang = e.target.value;
+    if (lang === 'pt') {
+      document.querySelector('.typing-animation').textContent = 'Conte-nos sobre seu negócio...';
+      businessDescription.placeholder = 'Descreva sua empresa ou negócio aqui...';
+      generateBtn.textContent = 'GERAR';
+    } else {
+      document.querySelector('.typing-animation').textContent = 'Tell us about your business...';
+      businessDescription.placeholder = 'Describe your company or business here...';
+      generateBtn.textContent = 'NGR';
+    }
+  });
+
+  // Website generation simulation
+  generateBtn.addEventListener('click', async () => {
+    if (!businessDescription.value.trim()) {
+      alert('Please enter a business description');
+      return;
+    }
+
+    previewSection.innerHTML = '<h3>Generating your website...</h3>';
+    
+    // Simulate AI processing
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Generate random layout
+    const layouts = [
+      'Modern Minimal',
+      'Bold Corporate',
+      'Creative Portfolio',
+      'E-commerce Focus',
+      'Landing Page Plus'
+    ];
+    
+    const randomLayout = layouts[Math.floor(Math.random() * layouts.length)];
+    
+    previewSection.innerHTML = `
+      <h3>Preview of your ${randomLayout} website</h3>
+      <div style="margin-top: 1rem;">
+        <p>✓ Layout generated based on AI analysis</p>
+        <p>✓ Color scheme optimized for your industry</p>
+        <p>✓ Content structure personalized</p>
+        <button class="generate-btn" style="margin-top: 1rem;" onclick="window.open('https://github.com/new')">
+          Export to GitHub
+        </button>
+      </div>
+    `;
+  });
+});
+</script>
+</body>
+</html>
